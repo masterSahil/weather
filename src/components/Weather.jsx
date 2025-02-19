@@ -100,6 +100,7 @@ const Weather = () => {
   console.log([weatherMain])
 
   return (
+    // container
     <div className="container">
 
       <div className="content">
