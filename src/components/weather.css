@@ -38,7 +38,7 @@
     }
 }
 .btn {
-    background: rgb(43, 2, 237); /* Glass-like background */
+    background: rgb(43, 2, 237);
     border: none;
     padding: 15px 20px;
     margin-left: 5px;
@@ -49,9 +49,8 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-  }
-  
-  .btn::before {
+}
+.btn::before {
     content: '';
     position: absolute;
     top: 0;
@@ -60,12 +59,10 @@
     height: 100%;
     background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
     transition: all 0.7s ease;
-  }
-  
-  .btn:hover::before {
+}
+.btn:hover::before {
     left: 100%;
-  }
-  
+}
 .card  {
     display: flex;
     flex-direction: column;
