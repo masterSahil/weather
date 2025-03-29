@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-    {/* Main */}
+    {/* Main  */}
     <div className="main">
       <Weather />
     </div>
