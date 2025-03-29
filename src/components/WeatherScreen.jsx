@@ -12,7 +12,6 @@ import sand from '../assets/sand.png'
 import Thunderstorm from '../assets/Thunderstorm.png'
 import smoke from '../assets/smoke.webp'
 import snow from '../assets/snow.webp'
-import loaderImg from '../assets/gif/loader.gif'
 import tornado_squall from '../assets/tornado-Squall.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
