@@ -38,7 +38,7 @@
     }
 }
 .btn {
-    background: rgba(43, 2, 237, 0.7); /* Glass-like background */
+    background: rgb(43, 2, 237); /* Glass-like background */
     border: none;
     padding: 15px 20px;
     margin-left: 5px;
