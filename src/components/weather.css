@@ -19,6 +19,10 @@
 .content{
     padding: 20px;
 }
+.horizontal-content{
+    display: flex;
+    align-items: center;
+}
 .inp{
     padding: 13px 20px;
     width: 20vw;
@@ -26,16 +30,27 @@
     border: none;
     font-size: 20px;
     color: white;
-    border: 1px solid;
     background: transparent;
     transition: all .3s ease;
     &:focus{
-        outline-color: white;
-        outline-width: 2px;
+        outline-color: transparent;
+        outline-width: 0;
     }
     &::placeholder{
         color: whitesmoke;
     }
+}
+.close-icon{
+    font-size: 24px;
+    cursor: pointer;
+}
+.close{
+    padding-right: 15px;
+}
+.input-content{
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
 }
 .btn {
     background: rgb(43, 2, 237);
@@ -63,6 +78,27 @@
 .btn:hover::before {
     left: 100%;
 }
+.loader{
+    height: 15vw;
+    max-width: 15vw;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 99;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    transition: all .3s ease;
+}
+.first-load {
+    margin-top: 10vw; /* Loader position on first search */
+  }
+.visible-hidden{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: .6;
+}
 .card  {
     display: flex;
     flex-direction: column;
@@ -76,6 +112,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 .search{
     font-style: normal;

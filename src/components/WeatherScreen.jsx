@@ -12,7 +12,11 @@ import sand from '../assets/sand.png'
 import Thunderstorm from '../assets/Thunderstorm.png'
 import smoke from '../assets/smoke.webp'
 import snow from '../assets/snow.webp'
+import loaderImg from '../assets/gif/loader.gif'
 import tornado_squall from '../assets/tornado-Squall.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+
 
 const Weather = () => {
   const [city, setCity] = useState('');
@@ -26,6 +30,7 @@ const Weather = () => {
   const [weatherMain, setWeatherMain] = useState('');
   const [day, setDay] = useState('');
   const [date, setDate] = useState('');
+  const [loader, setLoader] = useState(false);
 
   const API_KEY = 'dd668f81cf66e1a04683da6da24f4d58';
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
@@ -33,30 +38,35 @@ const Weather = () => {
   const submit = async () => {
     if (city === "" || city === null) {
       alert("Please enter a city name!");
+      setLoader(false)
       return;
     }
-  
-    try {
-      const response = await fetch(URL);
-      const data = await response.json();
-  
-      if (data.cod === "404") {
-        alert("City not found! Please enter a valid city name.");
-        return;
+
+    setLoader(true)
+      try {
+        const response = await fetch(URL);
+        const data = await response.json();
+    
+        if (data.cod === "404") {
+          alert("City not found! Please enter a valid city name.");
+          setLoader(false)
+          return;
+        }
+    
+        setTemperature(data.main.temp);
+        setFeelsLike(data.main.feels_like);
+        setHumidity(data.main.humidity);
+        setMin_temp(data.main.temp_min);
+        setMax_temp(data.main.temp_max);
+        setDescription(data.weather[0].description);
+        setWindSpeed(data.wind.speed);
+        setWeatherMain(data.weather[0].main);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+        alert("Something went wrong. Please try again later.");
       }
-  
-      setTemperature(data.main.temp);
-      setFeelsLike(data.main.feels_like);
-      setHumidity(data.main.humidity);
-      setMin_temp(data.main.temp_min);
-      setMax_temp(data.main.temp_max);
-      setDescription(data.weather[0].description);
-      setWindSpeed(data.wind.speed);
-      setWeatherMain(data.weather[0].main);
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
-      alert("Something went wrong. Please try again later.");
-    }
+      setLoader(false);
+
   };
   
   const handleSubmit = (e) => {
@@ -97,30 +107,46 @@ const Weather = () => {
     Tornado: tornado_squall,    
   };
 
-  console.log([weatherMain])
+
+  const clearInp = () => {
+    setCity('');
+    setTemperature('');
+    setWeatherMain('');
+  };
+
+  
 
   return (
     
     <div className="container">
 
       <div className="content">
-        <input
-          type="text"
-          value={city}
-          className="inp"
-          placeholder="Search Location"
-          onKeyDown={handleSubmit}
-          onChange={(e) => setCity(e.target.value)}
-        />
-
-        <button className="btn" onClick={submit}>
-          <i className="search">Search</i>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </button>
+        <div className="horizontal-content">
+          <div className="input-content">
+            <input
+              type="text"
+              value={city}
+              className="inp"
+              placeholder="Search Location"
+              onKeyDown={handleSubmit}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            {
+              city.length>0 &&
+              <div className="close">
+                  <FontAwesomeIcon icon={faCircleXmark} onClick={clearInp} className='close-icon' />
+              </div>
+            }
+          </div>
+          <button className="btn" onClick={submit}>
+            <i className="search">Search</i>
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
 
         {temperature && weatherMain ? (
           <>
-            <div className="main-info">
+            <div className={loader ? "visible-hidden" : "main-info"}>
               <div className="subContent">
                 <p>Temperature: {temperature}°C</p>
                 <p>Feels Like: {feelsLike}°C</p>
